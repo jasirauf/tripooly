@@ -1,18 +1,16 @@
 'use client';
-import React, { useMemo, useState, useEffect, useRef } from 'react';
+import React, { useMemo, useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { packages } from '../../data/packages';
 import PackageCard from '../../components/PackageCard';
 import '../page.css';
 
-const Packages = () => {
+const PackagesContent = () => {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get('q')?.toLowerCase() || '';
 
   const filteredPackages = useMemo(() => {
-    // Generate some dummy data to demonstrate lazy loading if needed,
-    // or just use the imported packages.
     const allPackages = [];
     for(let i=0; i<10; i++) {
       allPackages.push(...packages.map(p => ({...p, id: p.id + i * 100})));
@@ -32,7 +30,6 @@ const Packages = () => {
     const observer = new IntersectionObserver(
       entries => {
         if (entries[0].isIntersecting) {
-          // Simulate network request delay
           setTimeout(() => {
             setVisibleCount(prev => prev + 10);
           }, 500);
@@ -111,5 +108,11 @@ const Packages = () => {
     </div>
   );
 };
+
+const Packages = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <PackagesContent />
+  </Suspense>
+);
 
 export default Packages;

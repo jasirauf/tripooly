@@ -1,12 +1,12 @@
 'use client';
-import React, { useMemo } from 'react';
+import React, { useMemo, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { stays } from '../../data/packages';
 import PackageCard from '../../components/PackageCard';
 import '../page.css';
 
-const Stays = () => {
+const StaysContent = () => {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get('q')?.toLowerCase() || '';
 
@@ -66,5 +66,11 @@ const Stays = () => {
     </div>
   );
 };
+
+const Stays = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <StaysContent />
+  </Suspense>
+);
 
 export default Stays;
