@@ -1,7 +1,7 @@
 {
-  "/(main)/page": "app/(main)/page.js",
+  "/(main)/package/[id]/page": "app/(main)/package/[id]/page.js",
   "/(main)/packages/page": "app/(main)/packages/page.js",
   "/(main)/stays/page": "app/(main)/stays/page.js",
-  "/(main)/package/[id]/page": "app/(main)/package/[id]/page.js",
+  "/(main)/page": "app/(main)/page.js",
   "/admin/packages/page": "app/admin/packages/page.js"
 }
